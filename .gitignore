@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+build/
+DerivedData/
+geometry2d.xcodeproj/*
+!geometry2d.xcodeproj/project.pbxproj
