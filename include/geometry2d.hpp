@@ -4,12 +4,21 @@
 #include <limits>
 #include <cassert>
 #include <cmath>
+#include <string>
+
+#define GEOMETRY2D_VERSION_MAJOR 0
+#define GEOMETRY2D_VERSION_MINOR 0
 
 #ifndef EPSTIMES
 #define EPSTIMES 10.0
 #endif
 
+template<typename T> T _tbi(T x) {assert(false); return x;}
+#define TBI(x) _tbi(x)
+
 namespace geometry2d {
+
+template<typename C=char> std::basic_string<C> version() {return std::basic_string<C>("none");}
 
 template<typename R> R flip(const R x) {return 0==x ? x : -x;}
 template<typename R> R sqr(const R x) {return x*x;}
@@ -94,6 +103,9 @@ template<typename R> R distance(const vec2<R>& a,const vec2<R>& b) {return a.dis
 template<typename R> R dot(const vec2<R>& a,const vec2<R>& b) {return a.dot(b);}
 template<typename R> vec2<R> direction(const R a) {return vec2<R>(cos(a),sin(a));}
 
+template<typename R> struct ray2;
+template<typename R> struct segment2;
+
 template<typename R> struct circle2 {
 	// data
 	R x=0;
@@ -118,9 +130,30 @@ template<typename R> struct circle2 {
 	void flipxy() {flip(x); flip(y);}
 	R distance(const vec2<R>& v) {return sqrt(sqr(v.x-x)+sqr(v.y-y));}
 	R distance(const circle2& c) {return sqrt(sqr(c.x-x)+sqr(c.y-y));}
+	R distance(const ray2<R>& s) {return sqrt(sqr(s.x-x)+sqr(s.y-y));}
+	R edge_distance(const vec2<R>& v) {return distance(v)-r;}
+	R edge_distance(const circle2& c) {return distance(c)-r-c.r;}
+	R edge_distance(const segment2<R>& s) {return TBI(R(0));}
+	R closest(const ray2<R>& s,R& t,vec2<R>& p) {
+		R dd=sqr(s.dx)+sqr(s.dy);
+		R d=0;
+		t=div(s.x*s.dx-s.dx*x+s.y*s.dy-s.dy*y,dd);
+		d=div(s.x*s.dy-s.y*s.dx-x*s.dy+y*s.dx,dd);
+		p=s.point(t);
+		return d;
+	}
+	R closest(const segment2<R>& s,R& t,vec2<R>& p) {return TBI(R(0));}
 	R area() {return R(M_PI)*sqr(r);}
 	R circumference() {return R(M_2_PI)*r;}
-	vec2<R> project(const vec2<R>& v) {return v;} //TODO: extend
+	vec2<R> project(const vec2<R>& v) {return TBI(v);}
+	vec2<R> project(const ray2<R>& s) {return TBI(vec2<R>(0,0));}
+	void project(const segment2<R>& s,vec2<R>& p1,vec2<R>& p2) {TBI(0);}
+	ray2<R> tangent(const R& a) {return TBI(ray2<R>(0,0,0,0));}
+	bool intersect(const circle2& c,vec2<R>& p1,vec2<R>& p2) {return TBI(false);}
+	bool intersect(const ray2<R>& c,vec2<R>& p1,vec2<R>& p2) {return TBI(false);}
+	uint32_t intersect(const segment2<R>& c,vec2<R>& p1,vec2<R>& p2) {return TBI(0);}
+	vec2<R> interesect_near(const circle2& c) {return TBI(vec2<R>(0,0));}
+	vec2<R> interesect_faar(const circle2& c) {return TBI(vec2<R>(0,0));}
 	// checks
 	bool is_zero() {
 		return R(0)==r;
@@ -131,6 +164,32 @@ template<typename R> struct circle2 {
 	bool is_inside(vec2<R>& v) {
 		return distance(v)<=r;
 	}
+	bool is_almost_on_edge(const vec2<R>& v,const R tol=R(EPSTIMES)*std::numeric_limits<R>::eps()) {
+		return abs(distance(v)-r)<=tol;
+	}
+};
+
+template<typename R> struct ray2 {
+	// data
+	R x=0;
+	R y=0;
+	R dx=1;
+	R dy=0;
+	// constructors
+	ray2()=default;
+	ray2(const R _x,const R _y,const R _dx,const R _dy) : x(_x),y(_y),dx(_dx),dy(_dy) {}
+	ray2(const vec2<R>& v,const vec2<R>& d) : x(v.x),y(v.y),dx(d.x),dy(d.y) {}
+	// destructor
+	virtual ~ray2() {}
+	// advanced operations
+	vec2<R> point(const R& t) {return vec2<R>(x+t*dx,y+t*dy);}
+};
+
+template<typename R> struct segment2 {
+	R x1=0;
+	R y1=0;
+	R x2=1;
+	R dy=1;
 };
 
 // tests
