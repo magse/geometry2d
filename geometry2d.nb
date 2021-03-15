@@ -1,0 +1,126 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3382,        116]
+NotebookOptionsPosition[      2878,         98]
+NotebookOutlinePosition[      3302,        115]
+CellTagsIndexPosition[      3259,        112]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Solve", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["x", "0"], "+", 
+       RowBox[{"t", " ", 
+        SubscriptBox["x", "d"]}]}], "\[Equal]", 
+      RowBox[{
+       SubscriptBox["x", "p"], "-", 
+       RowBox[{"r", " ", 
+        SubscriptBox["y", "d"]}]}]}], ",", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["y", "0"], "+", 
+       RowBox[{"t", " ", 
+        SubscriptBox["y", "d"]}]}], "\[Equal]", 
+      RowBox[{
+       SubscriptBox["y", "p"], "+", 
+       RowBox[{"r", " ", 
+        SubscriptBox["x", "d"]}]}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"t", ",", "r"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.824646196714795*^9, 3.824646237372113*^9}, {
+  3.8246462793694563`*^9, 3.824646400117487*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"a46af94a-dc9c-486d-a81e-be39b97045b5"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"t", "\[Rule]", 
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{
+        RowBox[{
+         SubscriptBox["x", "0"], " ", 
+         SubscriptBox["x", "d"]}], "-", 
+        RowBox[{
+         SubscriptBox["x", "d"], " ", 
+         SubscriptBox["x", "p"]}], "+", 
+        RowBox[{
+         SubscriptBox["y", "0"], " ", 
+         SubscriptBox["y", "d"]}], "-", 
+        RowBox[{
+         SubscriptBox["y", "d"], " ", 
+         SubscriptBox["y", "p"]}]}], 
+       RowBox[{
+        SubsuperscriptBox["x", "d", "2"], "+", 
+        SubsuperscriptBox["y", "d", "2"]}]]}]}], ",", 
+    RowBox[{"r", "\[Rule]", 
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", 
+          SubscriptBox["x", "d"]}], " ", 
+         SubscriptBox["y", "0"]}], "+", 
+        RowBox[{
+         SubscriptBox["x", "0"], " ", 
+         SubscriptBox["y", "d"]}], "-", 
+        RowBox[{
+         SubscriptBox["x", "p"], " ", 
+         SubscriptBox["y", "d"]}], "+", 
+        RowBox[{
+         SubscriptBox["x", "d"], " ", 
+         SubscriptBox["y", "p"]}]}], 
+       RowBox[{
+        SubsuperscriptBox["x", "d", "2"], "+", 
+        SubsuperscriptBox["y", "d", "2"]}]]}]}]}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{3.8246464028278513`*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"0d6128de-d852-4827-8c82-8c385de00053"]
+}, Open  ]]
+},
+WindowSize->{808, 911},
+WindowMargins->{{19, Automatic}, {Automatic, 70}},
+Magnification:>1.5 Inherited,
+FrontEndVersion->"12.1 for Mac OS X x86 (64-bit) (March 18, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"b5231d39-38cd-4355-beef-4ca2ca4041e6"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 880, 27, 49, "Input",ExpressionUUID->"a46af94a-dc9c-486d-a81e-be39b97045b5"],
+Cell[1463, 51, 1399, 44, 178, "Output",ExpressionUUID->"0d6128de-d852-4827-8c82-8c385de00053"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
