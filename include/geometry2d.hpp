@@ -22,9 +22,28 @@ template<typename C=char> std::basic_string<C> version() {return std::basic_stri
 
 template<typename R> R flip(const R x) {return 0==x ? x : -x;}
 template<typename R> R sqr(const R x) {return x*x;}
+template<typename R> R div(const R n,const R d) {
+	assert(R(0)!=d);
+	assert(!isnan(d));
+	assert(!isinf(d));
+	assert(!isnan(n));
+	assert(!isinf(n));
+	return n/d;
+}
 template<typename R> R inv(const R x) {
 	assert(R(0)!=x);
+	assert(!isnan(x));
+	assert(!isinf(x));
 	return R(1)/x;
+}
+template<typename R> R length(const R x,const R y) {return hypot(x,y);}
+template<typename R> R normalize(const R x,const R y) {
+	R len=length(x,y);
+	if(len) {
+		len=inv(len);
+		x*=len;
+		y*=len;
+	}
 }
 
 template<typename R> struct vec2 {
@@ -71,15 +90,8 @@ template<typename R> struct vec2 {
 	void flipx() {flip(y);}
 	void flipy() {flip(x);}
 	void flipxy() {flip(x); flip(y);}
-	void normalize() {
-		R len=length();
-		if(len) {
-			len=inv(len);
-			x*=len;
-			y*=len;
-		}
-	}
-	R distance(const vec2& v) {return sqrt(sqr(v.x-x)+sqr(v.y-y));}
+	void normalize() {normalize(x,y);}
+	R distance(const vec2& v) {return length(sqr(v.x-x),sqr(v.y-y));}
 	R angle(const vec2& v) {return atan2(y-v.y,x-v.x);}
 	void direction(const R a) {x=cos(a); y=sin(a);}
 	// checks
@@ -144,6 +156,8 @@ template<typename R> struct circle2 {
 	}
 	R closest(const segment2<R>& s,R& t,vec2<R>& p) {return TBI(R(0));}
 	R area() {return R(M_PI)*sqr(r);}
+	R area(const R a) {r=sqrt(div(a,R(M_PI)));return r;}
+	R diameter() {return R(2)*r;}
 	R circumference() {return R(M_2_PI)*r;}
 	vec2<R> project(const vec2<R>& v) {return TBI(v);}
 	vec2<R> project(const ray2<R>& s) {return TBI(vec2<R>(0,0));}
@@ -155,15 +169,9 @@ template<typename R> struct circle2 {
 	vec2<R> interesect_near(const circle2& c) {return TBI(vec2<R>(0,0));}
 	vec2<R> interesect_faar(const circle2& c) {return TBI(vec2<R>(0,0));}
 	// checks
-	bool is_zero() {
-		return R(0)==r;
-	}
-	bool is_unit() {
-		return R(1)==r;
-	}
-	bool is_inside(vec2<R>& v) {
-		return distance(v)<=r;
-	}
+	bool is_zero() {return R(0)==r;}
+	bool is_unit() {return R(1)==r;}
+	bool is_inside(vec2<R>& v) {return distance(v)<=r;}
 	bool is_almost_on_edge(const vec2<R>& v,const R tol=R(EPSTIMES)*std::numeric_limits<R>::eps()) {
 		return abs(distance(v)-r)<=tol;
 	}
@@ -183,6 +191,11 @@ template<typename R> struct ray2 {
 	virtual ~ray2() {}
 	// advanced operations
 	vec2<R> point(const R& t) {return vec2<R>(x+t*dx,y+t*dy);}
+	ray2 align(vec2<R>& v) {
+		dx=v.x;
+		dy=v.y;
+		normalize(dx,dy);
+	}
 };
 
 template<typename R> struct segment2 {
