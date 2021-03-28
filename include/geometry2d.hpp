@@ -36,15 +36,17 @@ template<typename R> R inv(const R x) {
 	assert(!isinf(x));
 	return R(1)/x;
 }
-template<typename R> R length(const R x,const R y) {return hypot(x,y);}
-template<typename R> R normalize(const R x,const R y) {
-	R len=length(x,y);
+template<typename R> R length2(const R x,const R y) {return hypot(x,y);}
+template<typename R> R normalize2(const R x,const R y) {
+	R len=length2(x,y);
 	if(len) {
 		len=inv(len);
 		x*=len;
 		y*=len;
 	}
 }
+template<typename R> R dot2(const R x1,const R y1,const R x2,const R y2) {return sqr(x1-x2)+sqr(y1-y2);}
+template<typename R> R distance2(const R x1,const R y1,const R x2,const R y2) {return hypot(x1-x2,y1-y2);}
 
 template<typename R> struct vec2 {
 	// data
@@ -90,7 +92,7 @@ template<typename R> struct vec2 {
 	void flipx() {flip(y);}
 	void flipy() {flip(x);}
 	void flipxy() {flip(x); flip(y);}
-	void normalize() {normalize(x,y);}
+	void normalize() {normalize2(x,y);}
 	R distance(const vec2& v) {return length(sqr(v.x-x),sqr(v.y-y));}
 	R angle(const vec2& v) {return atan2(y-v.y,x-v.x);}
 	void direction(const R a) {x=cos(a); y=sin(a);}
@@ -115,9 +117,6 @@ template<typename R> R distance(const vec2<R>& a,const vec2<R>& b) {return a.dis
 template<typename R> R dot(const vec2<R>& a,const vec2<R>& b) {return a.dot(b);}
 template<typename R> vec2<R> direction(const R a) {return vec2<R>(cos(a),sin(a));}
 
-template<typename R> struct ray2;
-template<typename R> struct segment2;
-
 template<typename R> struct circle2 {
 	// data
 	R x=0;
@@ -136,38 +135,30 @@ template<typename R> struct circle2 {
 	void operator-=(const vec2<R>& v) {x-=v.x; y-=v.y;}
 	void operator*=(const vec2<R>& v) {x*=v.x; y*=v.y;}
 	void operator/=(const vec2<R>& v) {x/=v.x; y/=v.y;}
+	vec2<R> center() {return vec2<R>(x,y);}
 	// advanced operations
 	void flipx() {flip(y);}
 	void flipy() {flip(x);}
 	void flipxy() {flip(x); flip(y);}
-	R distance(const vec2<R>& v) {return sqrt(sqr(v.x-x)+sqr(v.y-y));}
-	R distance(const circle2& c) {return sqrt(sqr(c.x-x)+sqr(c.y-y));}
-	R distance(const ray2<R>& s) {return sqrt(sqr(s.x-x)+sqr(s.y-y));}
-	R edge_distance(const vec2<R>& v) {return distance(v)-r;}
-	R edge_distance(const circle2& c) {return distance(c)-r-c.r;}
-	R edge_distance(const segment2<R>& s) {return TBI(R(0));}
-	R closest(const ray2<R>& s,R& t,vec2<R>& p) {
-		R dd=sqr(s.dx)+sqr(s.dy);
-		R d=0;
-		t=div(s.x*s.dx-s.dx*x+s.y*s.dy-s.dy*y,dd);
-		d=div(s.x*s.dy-s.y*s.dx-x*s.dy+y*s.dx,dd);
-		p=s.point(t);
-		return d;
-	}
-	R closest(const segment2<R>& s,R& t,vec2<R>& p) {return TBI(R(0));}
+	R distance(const vec2<R>& v) {return v.distance(center())-r;}
+	R distance(const circle2& c) {return distance2(x,y,c.x,c.y)-r-c.r;}
 	R area() {return R(M_PI)*sqr(r);}
 	R area(const R a) {r=sqrt(div(a,R(M_PI)));return r;}
 	R diameter() {return R(2)*r;}
 	R circumference() {return R(M_2_PI)*r;}
-	vec2<R> project(const vec2<R>& v) {return TBI(v);}
-	vec2<R> project(const ray2<R>& s) {return TBI(vec2<R>(0,0));}
-	void project(const segment2<R>& s,vec2<R>& p1,vec2<R>& p2) {TBI(0);}
-	ray2<R> tangent(const R& a) {return TBI(ray2<R>(0,0,0,0));}
+	vec2<R> project(const vec2<R>& v) {
+		vec2<R> p=center();
+		R d=distance2(x,y,v.x,v.y);
+		if(0==d) return v;
+		R q=r*(v.x-x)/d;
+		R e=sqr(r)-sqr(q);
+		assert(e>=0);
+		d=x+q-v.x;
+		if(d<(x-q-v.x)) p.x=x+q; else p.x=x-q;
+		p.y=sqrt(e)+y;
+		return p;
+	}
 	bool intersect(const circle2& c,vec2<R>& p1,vec2<R>& p2) {return TBI(false);}
-	bool intersect(const ray2<R>& c,vec2<R>& p1,vec2<R>& p2) {return TBI(false);}
-	uint32_t intersect(const segment2<R>& c,vec2<R>& p1,vec2<R>& p2) {return TBI(0);}
-	vec2<R> interesect_near(const circle2& c) {return TBI(vec2<R>(0,0));}
-	vec2<R> interesect_faar(const circle2& c) {return TBI(vec2<R>(0,0));}
 	// checks
 	bool is_zero() {return R(0)==r;}
 	bool is_unit() {return R(1)==r;}
@@ -185,10 +176,12 @@ template<typename R> struct ray2 {
 	R dy=0;
 	// constructors
 	ray2()=default;
-	ray2(const R _x,const R _y,const R _dx,const R _dy) : x(_x),y(_y),dx(_dx),dy(_dy) {}
-	ray2(const vec2<R>& v,const vec2<R>& d) : x(v.x),y(v.y),dx(d.x),dy(d.y) {}
+	ray2(const R _x,const R _y,const R _dx,const R _dy) : x(_x),y(_y),dx(_dx),dy(_dy) {normalize(dx,dy);}
+	ray2(const vec2<R>& v,const vec2<R>& d) : x(v.x),y(v.y),dx(d.x),dy(d.y) {normalize(dx,dy);}
 	// destructor
 	virtual ~ray2() {}
+	// operations
+	vec2<R> normal() {return vec2<R>(y,-x);}
 	// advanced operations
 	vec2<R> point(const R& t) {return vec2<R>(x+t*dx,y+t*dy);}
 	ray2 align(vec2<R>& v) {
@@ -196,6 +189,24 @@ template<typename R> struct ray2 {
 		dy=v.y;
 		normalize(dx,dy);
 	}
+	R distance(vec2<R>& v,R& u) {return TBI(R(0));}
+	R distance(circle2<R>& c) {return distance(vec2<R>(c.x,c.y));}
+	bool interesection(ray2& r,vec2<R>& p,R& u,R& v) {return TBI(false);}
+	bool intersect(const circle2<R>& c,vec2<R>& p1,vec2<R>& p2) {return TBI(false);}
+	vec2<R> project(const vec2<R>& p) {return TBI(vec2<R>(0,0));}
+	ray2 rotate(vec2<R>& v,const R a) {TBI(R(0)); return *this;}
+	R closest(const circle2<R>& c,R& t,vec2<R>& p) {
+		R dd=sqr(dx)+sqr(dy);
+		R d=0;
+		t=div(x*dx-dx*c.x+y*dy-dy*c.y,dd);
+		d=div(x*dy-y*dx-c.x*dy+c.y*dx,dd);
+		p=point(t);
+		return d;
+	}
+	ray2 tangent(circle2<R>& c,const R& a) {TBI(ray2<R>(0,0,0,0)); return *this;}
+	// checks
+	bool is_paralell(ray2& r) {return TBI(false);}
+	bool is_orthogonal(ray2& r) {return TBI(false);}
 };
 
 template<typename R> struct segment2 {
@@ -203,6 +214,10 @@ template<typename R> struct segment2 {
 	R y1=0;
 	R x2=1;
 	R dy=1;
+	// ray2 R edge_distance(const segment2<R>& s) {return TBI(R(0));}
+	// vec2 	R closest(const segment2<R>& s,R& t,vec2<R>& p) {return TBI(R(0));}
+	// ray2 	void project(const segment2<R>& s,vec2<R>& p1,vec2<R>& p2) {TBI(0);}
+	// ray2 	uint32_t intersect(const segment2<R>& c,vec2<R>& p1,vec2<R>& p2) {return TBI(0);}
 };
 
 // tests
