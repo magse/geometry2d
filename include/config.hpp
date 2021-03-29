@@ -13,7 +13,11 @@
 #endif
 
 #ifndef G2D_M_PI
+#ifdef _GNU_SOURCE
+#define G2D_M_PI M_PIl
+#else
 #define G2D_M_PI R(3.1415926535897932384626433832795028841971693993751)
+#endif
 #endif
 
 #ifndef G2D_M_PI_2
