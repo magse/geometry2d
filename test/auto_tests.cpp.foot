@@ -1,0 +1,7 @@
+  return 0;
+
+}
+} // namespace geometry2d
+
+// ALL DONE
+

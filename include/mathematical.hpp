@@ -4,7 +4,7 @@
 
 namespace geometry2d {
 
-template<typename C=char> std::basic_string<C> version() {return std::basic_string<C>("none");}
+//template<typename C=char> std::basic_string<C> version() {return std::basic_string<C>("none");}
 
 template<typename R> R flip(const R x) {return 0==x ? x : -x;}
 template<typename R> R sqr(const R x) {return x*x;}

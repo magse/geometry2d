@@ -12,6 +12,7 @@
 #define EPSTIMES 10.0
 #endif
 
+//TODO: Remove this
 template<typename T> T _tbi(T x) {assert(false); return x;}
 #define TBI(x) _tbi(x)
 

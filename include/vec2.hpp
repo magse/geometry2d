@@ -1,6 +1,6 @@
 #pragma once
 
-#include "config.hpp"
+#include "mathematical.hpp"
 
 namespace geometry2d {
 
@@ -49,7 +49,7 @@ template<typename R> struct vec2 {
 	void flipy() {flip(x);}
 	void flipxy() {flip(x); flip(y);}
 	void normalize() {normalize2(x,y);}
-	R distance(const vec2& v) {return length(sqr(v.x-x),sqr(v.y-y));}
+	R distance(const vec2& v) {return length2(v.x-x,v.y-y);}
 	R angle(const vec2& v) {return atan2(y-v.y,x-v.x);}
 	void direction(const R a) {x=cos(a); y=sin(a);}
 	// checks
@@ -69,25 +69,34 @@ template<typename R> struct vec2 {
 template<typename R> vec2<R> operator*(const R& s,const vec2<R>& v) {return vec2<R>(s*v.x,s*v.y);}
 template<typename R> vec2<R> rotate(const vec2<R>& v,const R a) {vec2<R> r=v; r.rotate(a); return r;}
 template<typename R> vec2<R> rotate(const vec2<R>& v,const R ax,const R ay) {vec2<R> r=v; r.rotate(ax,ay); return r;}
-template<typename R> R distance(const vec2<R>& a,const vec2<R>& b) {return a.distance(b);}
-template<typename R> R dot(const vec2<R>& a,const vec2<R>& b) {return a.dot(b);}
+template<typename R> R distance(vec2<R>& a,vec2<R>& b) {return a.distance(b);}
+template<typename R> R dot(vec2<R>& a,vec2<R>& b) {return a.dot(b);}
 template<typename R> vec2<R> direction(const R a) {return vec2<R>(cos(a),sin(a));}
 
 // tests
-template<typename R> int test1(std::ostream& s) {
+template<typename R> int test_vec2_basic(std::ostream& s) {
 	vec2<R> a(-1,-1);
 	vec2<R> b(1,1);
 	vec2<R> c=a+b;
 	assert(c.is_zero());
 	assert(R(-2)==a.dot(b));
-	s << "test1<" << sizeof(R) << "> OK" << std::endl;
 	return 0;
 }
 
-template<typename R> int tests(std::ostream& s) {
-	int res=0;
-	res+=test1<R>(s);
-	return res;
+template<typename R> int test_vec2_rotate(std::ostream& s) {
+	vec2<R> v;
+	v.rotate(static_cast<R>(M_PI_4));
+	assert(abs(v.x-inv(M_SQRT2))<EPSTIMES*std::numeric_limits<R>::epsilon());
+	return 0;
+}
+
+template<typename R> int test_vec2_external(std::ostream& s) {
+	vec2<R> v1(R(1),R(0));
+	vec2<R> v2=v1;
+	v2.rotate(R(M_PI_2));
+	assert(0==dot(v1,v2));
+	assert(distance(v1,v2));
+	return 0;
 }
 
 }
