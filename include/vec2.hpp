@@ -74,20 +74,17 @@ template<typename R> R dot(const vec2<R>& a,const vec2<R>& b) {return a.dot(b);}
 template<typename R> vec2<R> direction(const R a) {return vec2<R>(cos(a),sin(a));}
 
 // tests
-template<typename R> int test1(std::ostream& s) {
+template<typename R> int test_vec2_basic(std::ostream& s) {
 	vec2<R> a(-1,-1);
 	vec2<R> b(1,1);
 	vec2<R> c=a+b;
 	assert(c.is_zero());
 	assert(R(-2)==a.dot(b));
-	s << "test1<" << sizeof(R) << "> OK" << std::endl;
 	return 0;
 }
 
-template<typename R> int tests(std::ostream& s) {
-	int res=0;
-	res+=test1<R>(s);
-	return res;
+template<typename R> int test_vec2_rotate(std::ostream& s) {
+	return 0;
 }
 
 }

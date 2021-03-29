@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D00B94F2611FC2500F5969D /* auto_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D00B94E2611FC2500F5969D /* auto_tests.cpp */; };
 		5D35FBAB25FC047200468C76 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D35FBAA25FC047200468C76 /* test.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5D00B94E2611FC2500F5969D /* auto_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = auto_tests.cpp; sourceTree = "<group>"; };
 		5D20DB742611EE4C00F74F98 /* line2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = line2.hpp; sourceTree = "<group>"; };
 		5D20DB752611EE4C00F74F98 /* config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = config.hpp; sourceTree = "<group>"; };
 		5D20DB762611EE4C00F74F98 /* mathematical.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mathematical.hpp; sourceTree = "<group>"; };
@@ -65,7 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				5D20DB732611EE0300F74F98 /* include */,
-				5D35FBA025FC044A00468C76 /* source */,
+				5D35FBA025FC044A00468C76 /* test */,
 				5D35FB9F25FC044A00468C76 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -78,13 +80,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5D35FBA025FC044A00468C76 /* source */ = {
+		5D35FBA025FC044A00468C76 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				5D00B94E2611FC2500F5969D /* auto_tests.cpp */,
 				5D35FBAA25FC047200468C76 /* test.cpp */,
 			);
-			name = source;
-			path = src;
+			path = test;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
@@ -143,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D00B94F2611FC2500F5969D /* auto_tests.cpp in Sources */,
 				5D35FBAB25FC047200468C76 /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
