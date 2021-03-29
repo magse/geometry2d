@@ -11,6 +11,8 @@ template<typename R> int auto_tests(std::ostream& s) {
   AUTO_TEST(test_vec2_basic);
   AUTO_TEST(test_vec2_rotate);
   AUTO_TEST(test_vec2_external);
+  AUTO_TEST(test_vec2_constructors);
+  AUTO_TEST(test_vec2_math);
   return 0;
 
 }
