@@ -23,9 +23,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5D20DB742611EE4C00F74F98 /* line2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = line2.hpp; sourceTree = "<group>"; };
+		5D20DB752611EE4C00F74F98 /* config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = config.hpp; sourceTree = "<group>"; };
+		5D20DB762611EE4C00F74F98 /* mathematical.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mathematical.hpp; sourceTree = "<group>"; };
+		5D20DB772611EE4C00F74F98 /* ray2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ray2.hpp; sourceTree = "<group>"; };
+		5D20DB782611EE4C00F74F98 /* version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = version.hpp; sourceTree = "<group>"; };
+		5D20DB792611EE4C00F74F98 /* vec2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vec2.hpp; sourceTree = "<group>"; };
+		5D20DB7A2611EE4C00F74F98 /* circle2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = circle2.hpp; sourceTree = "<group>"; };
 		5D35FB9E25FC044A00468C76 /* geometry2d */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = geometry2d; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D35FBAA25FC047200468C76 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
-		5D35FBAD25FC048100468C76 /* geometry2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = geometry2d.hpp; path = ../include/geometry2d.hpp; sourceTree = "<group>"; };
+		5D35FBAD25FC048100468C76 /* geometry2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geometry2d.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,9 +46,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D20DB732611EE0300F74F98 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				5D20DB782611EE4C00F74F98 /* version.hpp */,
+				5D20DB752611EE4C00F74F98 /* config.hpp */,
+				5D20DB792611EE4C00F74F98 /* vec2.hpp */,
+				5D20DB7A2611EE4C00F74F98 /* circle2.hpp */,
+				5D20DB772611EE4C00F74F98 /* ray2.hpp */,
+				5D20DB742611EE4C00F74F98 /* line2.hpp */,
+				5D20DB762611EE4C00F74F98 /* mathematical.hpp */,
+				5D35FBAD25FC048100468C76 /* geometry2d.hpp */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		5D35FB9525FC044A00468C76 = {
 			isa = PBXGroup;
 			children = (
+				5D20DB732611EE0300F74F98 /* include */,
 				5D35FBA025FC044A00468C76 /* source */,
 				5D35FB9F25FC044A00468C76 /* Products */,
 			);
@@ -58,7 +81,6 @@
 		5D35FBA025FC044A00468C76 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				5D35FBAD25FC048100468C76 /* geometry2d.hpp */,
 				5D35FBAA25FC047200468C76 /* test.cpp */,
 			);
 			name = source;
