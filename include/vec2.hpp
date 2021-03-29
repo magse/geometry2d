@@ -84,7 +84,6 @@ template<typename R> int test_vec2_basic(std::ostream& s) {
 }
 
 template<typename R> int test_vec2_rotate(std::ostream& s) {
-<<<<<<< HEAD
 	vec2<R> v;
 	v.rotate(static_cast<R>(M_PI_4));
 	assert(abs(v.x-inv(M_SQRT2))<EPSTIMES*std::numeric_limits<R>::epsilon());
@@ -97,8 +96,6 @@ template<typename R> int test_vec2_external(std::ostream& s) {
 	v2.rotate(R(M_PI_2));
 	assert(0==dot(v1,v2));
 	assert(distance(v1,v2));
-=======
->>>>>>> main
 	return 0;
 }
 

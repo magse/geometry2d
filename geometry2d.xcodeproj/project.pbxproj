@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D00B94F2611FC2500F5969D /* auto_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D00B94E2611FC2500F5969D /* auto_tests.cpp */; };
 		5D35FBAB25FC047200468C76 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D35FBAA25FC047200468C76 /* test.cpp */; };
 /* End PBXBuildFile section */
 
@@ -24,14 +23,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
 		5D00B9522612108900F5969D /* get_tests.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = get_tests.sh; sourceTree = "<group>"; };
 		5D00B9532612108900F5969D /* auto_tests.cpp.foot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = auto_tests.cpp.foot; sourceTree = "<group>"; };
 		5D00B9542612108900F5969D /* auto_tests.cpp.head */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = auto_tests.cpp.head; sourceTree = "<group>"; };
 		5D00B959261249D600F5969D /* auto_tests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = auto_tests.hpp; sourceTree = "<group>"; };
-=======
-		5D00B94E2611FC2500F5969D /* auto_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = auto_tests.cpp; sourceTree = "<group>"; };
->>>>>>> main
 		5D20DB742611EE4C00F74F98 /* line2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = line2.hpp; sourceTree = "<group>"; };
 		5D20DB752611EE4C00F74F98 /* config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = config.hpp; sourceTree = "<group>"; };
 		5D20DB762611EE4C00F74F98 /* mathematical.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mathematical.hpp; sourceTree = "<group>"; };
@@ -90,14 +85,10 @@
 		5D35FBA025FC044A00468C76 /* test */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				5D00B959261249D600F5969D /* auto_tests.hpp */,
 				5D00B9542612108900F5969D /* auto_tests.cpp.head */,
 				5D00B9532612108900F5969D /* auto_tests.cpp.foot */,
 				5D00B9522612108900F5969D /* get_tests.sh */,
-=======
-				5D00B94E2611FC2500F5969D /* auto_tests.cpp */,
->>>>>>> main
 				5D35FBAA25FC047200468C76 /* test.cpp */,
 			);
 			path = test;
@@ -159,7 +150,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D00B94F2611FC2500F5969D /* auto_tests.cpp in Sources */,
 				5D35FBAB25FC047200468C76 /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
