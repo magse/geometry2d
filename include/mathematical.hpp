@@ -31,7 +31,7 @@ template<typename R> R normalize2(const R x,const R y) {
 		y*=len;
 	}
 }
-template<typename R> R dot2(const R x1,const R y1,const R x2,const R y2) {return sqr(x1-x2)+sqr(y1-y2);}
+template<typename R> R dot2(const R x1,const R y1,const R x2,const R y2) {return x1*x2+y1*y2;}
 template<typename R> R distance2(const R x1,const R y1,const R x2,const R y2) {return hypot(x1-x2,y1-y2);}
 
 
