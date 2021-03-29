@@ -101,4 +101,39 @@ template<typename R> int test_vec2_external(std::ostream& s) {
 	return 0;
 }
 
+template<typename R> int test_vec2_constructors(std::ostream& s) {
+    float fv[]={1.0f,2.0f,3.0f,4.0f,5.0f,6.0f,7.0f,8.0f};
+    float dv[]={1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0};
+    float lv[]={1.0l,2.0l,3.0l,4.0l,5.0l,6.0l,7.0l,8.0l};
+    vec2<R> v;
+    for(size_t n=0;n<4;n++) {
+        v+=vec2<R>(&fv[2*n]);
+        v+=vec2<R>(&dv[2*n]);
+        v+=vec2<R>(&lv[2*n]);
+    }
+    vec2<R> p=v;
+    vec2<R> q(1,1);
+    for(size_t n=0;n<4;n++) {
+        v-=vec2<R>(&fv[2*n]);
+        v-=vec2<R>(&dv[2*n]);
+        v-=vec2<R>(&lv[2*n]);
+    }
+    return 0;
+}
+
+template<typename R> int test_vec2_math(std::ostream& s) {
+    vec2<R> a,b,c,d;
+    R g=1.2;
+    a=vec2<R>(1,2);
+    b=vec2<R>(4,4);
+    a+=a*g;
+    a+=a*b;
+    a+=b*a;
+    a+=g*a;
+    c=vec2<R>(3,3);
+    d=vec2<R>(4,4);
+    a=c/-d;
+    return 0;
+}
+
 }
