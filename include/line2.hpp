@@ -15,4 +15,8 @@ template<typename R> struct line2 {
 	// ray2 	uint32_t intersect(const segment2<R>& c,vec2<R>& p1,vec2<R>& p2) {return TBI(0);}
 };
 
+template<typename R> int line2_test(std::ostream& s) {
+	return 0;
+}
+
 }

@@ -74,7 +74,7 @@ template<typename R> R dot(vec2<R>& a,vec2<R>& b) {return a.dot(b);}
 template<typename R> vec2<R> direction(const R a) {return vec2<R>(cos(a),sin(a));}
 
 // tests
-template<typename R> int test_vec2_basic(std::ostream& s) {
+template<typename R> int vec2_test_basic(std::ostream& s) {
 	vec2<R> a(-1,-1);
 	vec2<R> b(1,1);
 	vec2<R> c=a+b;
@@ -83,7 +83,7 @@ template<typename R> int test_vec2_basic(std::ostream& s) {
 	return 0;
 }
 
-template<typename R> int test_vec2_rotate(std::ostream& s) {
+template<typename R> int vec2_test_rotate(std::ostream& s) {
 	vec2<R> v(R(1),R(0));
 	v.rotate(static_cast<R>(G2D_M_PI_4));
 	R d=abs(v.x-G2D_M_SQRT1_2);
@@ -91,7 +91,7 @@ template<typename R> int test_vec2_rotate(std::ostream& s) {
 	return 0;
 }
 
-template<typename R> int test_vec2_external(std::ostream& s) {
+template<typename R> int vec2_test_external(std::ostream& s) {
 	vec2<R> v1(R(1),R(0));
 	vec2<R> v2=v1;
 	v2.rotate(R(G2D_M_PI_2));
@@ -101,7 +101,7 @@ template<typename R> int test_vec2_external(std::ostream& s) {
 	return 0;
 }
 
-template<typename R> int test_vec2_constructors(std::ostream& s) {
+template<typename R> int vec2_test_constructors(std::ostream& s) {
     float fv[]={1.0f,2.0f,3.0f,4.0f,5.0f,6.0f,7.0f,8.0f};
     float dv[]={1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0};
     float lv[]={1.0l,2.0l,3.0l,4.0l,5.0l,6.0l,7.0l,8.0l};
@@ -121,7 +121,7 @@ template<typename R> int test_vec2_constructors(std::ostream& s) {
     return 0;
 }
 
-template<typename R> int test_vec2_math(std::ostream& s) {
+template<typename R> int vec2_test_math(std::ostream& s) {
     vec2<R> a,b,c,d;
     R g=1.2;
     a=vec2<R>(1,2);
@@ -134,6 +134,16 @@ template<typename R> int test_vec2_math(std::ostream& s) {
     d=vec2<R>(4,4);
     a=c/-d;
     return 0;
+}
+
+template<typename R> int vec2_test(std::ostream& s) {
+	int result=0;
+	result+=vec2_test_basic<R>(s);
+	result+=vec2_test_rotate<R>(s);
+	result+=vec2_test_external<R>(s);
+	result+=vec2_test_constructors<R>(s);
+	result+=vec2_test_math<R>(s);
+	return result;
 }
 
 }

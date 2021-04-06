@@ -97,5 +97,8 @@ template<typename R> struct circle2 {
 	}
 };
 
+template<typename R> int circle2_test(std::ostream& s) {
+	return 0;
+}
 
 }

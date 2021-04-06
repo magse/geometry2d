@@ -45,4 +45,8 @@ template<typename R> struct ray2 {
 	bool is_orthogonal(ray2& r) {return TBI(false);}
 };
 
+template<typename R> int ray2_test(std::ostream& s) {
+	return 0;
+}
+
 }
