@@ -28,8 +28,8 @@ template<typename R> struct circle2 {
 	void flipx() {flip(y);}
 	void flipy() {flip(x);}
 	void flipxy() {flip(x); flip(y);}
-	R distance(const vec2<R>& v) {return v.distance(center())-r;}
-	R distance(const circle2& c) {return distance2(x,y,c.x,c.y)-r-c.r;}
+	R distance(vec2<R>& v) {return v.distance(center())-r;}
+	R distance(circle2& c) {return distance2(x,y,c.x,c.y)-r-c.r;}
 	R area() {return R(M_PI)*sqr(r);}
 	R area(const R a) {r=sqrt(div(a,R(M_PI)));return r;}
 	R diameter() {return R(2)*r;}
@@ -91,13 +91,35 @@ template<typename R> struct circle2 {
 	// checks
 	bool is_zero() {return R(0)==r;}
 	bool is_unit() {return R(1)==r;}
-	bool is_inside(vec2<R>& v) {return distance(v)<=r;}
+	bool is_inside(const vec2<R>& v) {return distance(v)<=r;}
+	bool is_fully_inside(circle2& c) {
+		if(c.r<r) return false;
+		R d=distance(c);
+		if((d+r)<c.r) return true;
+		return false;
+	}
+	bool is_fully_outside(circle2& c) {
+		R d=distance(c);
+		if((d-r)>c.r) return true;
+		return false;
+	}
 	bool is_almost_on_edge(const vec2<R>& v,const R tol=R(EPSTIMES)*std::numeric_limits<R>::eps()) {
 		return abs(distance(v)-r)<=tol;
 	}
 };
 
+template<typename R> bool outside_distance(R& dist,circle2<R>& earth,circle2<R>& satellite) {
+	dist=0;
+	if(earth.is_fully_inside(satellite)) return false;
+	dist=earth.distance(satellite);
+	return true;
+}
+
 template<typename R> int circle2_test(std::ostream& s) {
+	circle2<R> e={0,0,20};
+	circle2<R> m={0,0,1};
+	R d=0;
+	outside_distance(d,e,m);
 	return 0;
 }
 
