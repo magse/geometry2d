@@ -32,6 +32,7 @@
 *.app
 
 build/
+proj/
 DerivedData/
 geometry2d.xcodeproj/*
 !geometry2d.xcodeproj/project.pbxproj
