@@ -29,6 +29,8 @@ jobs:
       run: |
         cd ${{github.workspace}}/workspace
         git clone https://github.com/catchorg/Catch2.git
+        cd Catch2
+        git checkout v2.x
         
     - name: Configure Catch2
       run: |
