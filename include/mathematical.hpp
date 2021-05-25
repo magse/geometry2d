@@ -35,6 +35,7 @@ template<typename R> R normalize2(R& x,R& y) {
 		x*=len;
 		y*=len;
 	}
+	return len;
 }
 
 template<typename R> R dot2(const R x1,const R y1,const R x2,const R y2) {return x1*x2+y1*y2;}
