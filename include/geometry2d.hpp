@@ -1,9 +1,9 @@
 #pragma once
 
-#include "vec2.hpp"
-#include "circle2.hpp"
-#include "ray2.hpp"
-#include "line2.hpp"
+#include "geometry2d/vec2.hpp"
+#include "geometry2d/circle2.hpp"
+#include "geometry2d/ray2.hpp"
+#include "geometry2d/line2.hpp"
 
 #include <iostream>
 

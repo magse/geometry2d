@@ -1,6 +1,6 @@
 #pragma once
 
-#include "config.hpp"
+#include "defs.hpp"
 
 namespace geometry2d {
 
