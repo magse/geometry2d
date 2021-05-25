@@ -16,11 +16,17 @@ jobs:
       # build all using cmake        
       - name: build
         run: |
-          sudo apt-get -y update
-          sudo apt-get -y install catch2
-          mkdir build
-          cd build
-          cmake ..
+          git clone https://github.com/catchorg/Catch2.git
+          mkdir -p build/Catch2
+          cd build/Catch2
+          cmake ../../Catch2
+          cmake --build .
+          sudo make install
+          cd ../..
+          mkdir -p build/geometry2d
+          cd build/geometry2d
+          cmake ../../geometry2d
           cmake --build . --config Release
           sudo make install
           make test
+          du -sh ..
