@@ -22,12 +22,12 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Workspace
-      run: mkdir -p ${github.workspace}/workspace/build
+      run: mkdir -p ${{github.workspace}}/workspace/build
 
     - name: Requirements
       # Add Catch2 through a git clone
       run: |
-        cd ${github.workspace}/workspace
+        cd ${{github.workspace}}/workspace
         clone https://github.com/catchorg/Catch2.git
         
     - name: Configure required packages
