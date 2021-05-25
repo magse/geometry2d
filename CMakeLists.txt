@@ -1,24 +1,29 @@
-cmake_minimum_required(VERSION 3.10)
 
-project(geometry2dtest VERSION 0.4)
+# Build
+cmake_minimum_required(VERSION 3.12)
 
-set(INC_DIR include)
-set(HEADER_FILES ${INC_DIR}/versioon.hpp ${INC_DIR}/config.hpp ${INC_DIR}/methematical.hpp ${INC_DIR}/vec2.hpp ${INC_DIR}/circle2.hpp ${INC_DIR}/line2.hpp ${INC_DIR}/ray2.hpp ${INC_DIR}/geometry2d.hpp)
+project(geometry2d VERSION 0.4.1 LANGUAGES CXX)
 
-#target_include_directories(geometry2dtest PRIVATE ${INC_DIR})
+include(GNUInstallDirs)
 
-message(STATUS "geometry2d install directory: " ${CMAKE_INSTALL_INCLUDEDIR})
+add_library(${PROJECT_NAME} INTERFACE)
 
-add_library(geometry2d INTERFACE)
-#target_sources(geometry2d INTERFACE ${HEADER_FILES})
-target_include_directories(geometry2d INTERFACE include/)
+target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_14)
 
-install(DIRECTORY include/ DESTINATION include/)
+target_include_directories(
+    ${PROJECT_NAME}
+    INTERFACE
+    $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 
-option(ENABLE_TESTING OFF)
+# Test
+find_package(Catch2 REQUIRED)
+add_executable(test_geometry2d test/test_geometry2d.cpp)
+target_link_libraries(test_geometry2d PRIVATE Catch2::Catch2)
+target_include_directories(test_geometry2d PRIVATE ${PROJECT_SOURCE_DIR}/include)
+include(CTest)
+include(Catch)
+catch_discover_tests(test_geometry2d)
+enable_testing()
 
-if (ENABLE_TESTING)
-    enable_testing()
-    add_subdirectory("test")
-    add_test(NAME test1 COMMAND geometry2dtest --version)
-endif()
