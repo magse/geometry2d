@@ -16,6 +16,7 @@ jobs:
       # build all using cmake        
       - name: build
         run: |
+          sudo apt-get -y update
           sudo apt-get -y install catch2
           mkdir build
           cd build
