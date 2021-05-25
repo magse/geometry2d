@@ -33,7 +33,7 @@ jobs:
     - name: Configure Catch2
       run: |
         cd ${{github.workspace}}/workspace/build
-        cmake ../Catch2/.
+        cmake ../Catch2/. -INCLUDE=/usr/local/include
 
     - name: Build and install Catch2
       run: |
