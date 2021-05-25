@@ -28,7 +28,7 @@ template<typename R> R inv(const R x) {
 
 template<typename R> R length2(const R x,const R y) {return hypot(x,y);}
 
-template<typename R> R normalize2(const R x,const R y) {
+template<typename R> R normalize2(R& x,R& y) {
 	R len=length2(x,y);
 	if(len) {
 		len=inv(len);
