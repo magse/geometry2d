@@ -24,20 +24,20 @@ jobs:
     - name: Workspace
       run: mkdir -p ${{github.workspace}}/workspace/build
 
-    - name: Requirements
+    - name: Clone Catch2
       # Add Catch2 through a git clone
       run: |
         cd ${{github.workspace}}/workspace
-        clone https://github.com/catchorg/Catch2.git
+        git clone https://github.com/catchorg/Catch2.git
         
-    - name: Configure required packages
+    - name: Configure Catch2
       run: |
-        cd ${github.workspace}/workspace/build
+        cd ${{github.workspace}}/workspace/build
         cmake ../Catch2/.
 
-    - name: Build required packages
+    - name: Build and install Catch2
       run: |
-        cd ${github.workspace}/workspace/build
+        cd ${{github.workspace}}/workspace/build
         make
         sudo make install
 
