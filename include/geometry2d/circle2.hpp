@@ -32,8 +32,12 @@ template<typename R> struct circle2 {
 	void operator-=(const vec2<R>& v) {x-=v.x; y-=v.y;}
 	void operator*=(const vec2<R>& v) {x*=v.x; y*=v.y;}
 	void operator/=(const vec2<R>& v) {x/=v.x; y/=v.y;}
-	/// center point of circle
-	vec2<R> center() {return vec2<R>(x,y);}
+	/// center
+	vec2<R> center() const {return vec2<R>(x,y);}
+	/// vec2 casting
+	operator vec2<R>() const { return vec2<R>(x,y); }
+	/// assigment
+	circle2 operator=(const vec2<R>& v) {x=v.x;y=v.y;return *this;}
 	/// flipping operations
 	void flipx() {flip(y);}
 	void flipy() {flip(x);}
@@ -120,6 +124,46 @@ template<typename R> struct circle2 {
 	}
 };
 
+/// math operators for R and vec2<R>
+template<typename R> circle2<R> operator+=(circle2<R>& c,const vec2<R>& v) {
+	c.x+=v.x;
+	c.y+=v.y;
+	return c;
+}
+template<typename R> circle2<R> operator-=(circle2<R>& c,const vec2<R>& v) {
+	c.x-=v.x;
+	c.y-=v.y;
+	return c;
+}
+template<typename R> circle2<R> operator+=(circle2<R>& c,const R& v) {
+	c.r+=v;
+	return c;
+}
+template<typename R> circle2<R> operator-=(circle2<R>& c,const R& v) {
+	c.r-=v;
+	return c;
+}
+template<typename R> circle2<R> operator*=(circle2<R>& c,const R& v) {
+	c.r*=v;
+	return c;
+}
+template<typename R> circle2<R> operator/=(circle2<R>& c,const R& v) {
+	c.r/=v;
+	return c;
+}
+
+/// unit test on operations
+template<typename R> int circle2_operations_test(std::ostream& s) {
+	circle2<R> C2={1,0,1};
+	vec2<R> p1={4,3};
+	vec2<R> p2=C2;
+	C2=p1;
+	R k=R(2);
+	C2*=k;
+	C2+=p1;
+	return 0;
+}
+
 /// unit test on intersection functionallity
 template<typename R> int circle2_intersection_test(std::ostream& s) {
 	circle2<R> C1={0,0,1};
@@ -142,6 +186,7 @@ template<typename R> int circle2_intersection_test(std::ostream& s) {
 /// unit test of circle2 structure
 template<typename R> int circle2_test(std::ostream& s) {
 	int res=0;
+	res+=circle2_operations_test<R>(s);
 	res+=circle2_intersection_test<R>(s);
 	return res;
 }

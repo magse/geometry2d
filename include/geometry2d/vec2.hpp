@@ -30,7 +30,6 @@ template<typename R> struct vec2 {
 	vec2 operator+(const vec2& v) {return vec2(x+v.x,y+v.y);}
 	vec2 operator-(const vec2& v) {return vec2(x-v.x,y-v.y);}
 	vec2 operator*(const vec2& v) {return vec2(x*v.x,y*v.y);}
-	vec2 operator/(const vec2& v) {return vec2(x/v.x,y/v.y);}
 	vec2 operator*(const R& s) {return vec2(x*s,y*s);}
 	vec2 operator/(const R& s) {return vec2(x/s,y/s);}
 	vec2 operator+() {return *this;}
@@ -39,6 +38,7 @@ template<typename R> struct vec2 {
 	void operator-=(const vec2& v) {x-=v.x; y-=v.y;}
 	void operator*=(const vec2& v) {x*=v.x; y*=v.y;}
 	void operator/=(const vec2& v) {x/=v.x; y/=v.y;}
+	void operator*=(const R& v) {x*=v; y*=v;}
 	// advanced operations
 	R dot(const vec2& v) {return x*v.x+y*v.y;}
 	R dot() {return dot(*this);}
@@ -66,7 +66,7 @@ template<typename R> struct vec2 {
 	}
 };
 
-template<typename R> vec2<R> operator*(const R& s,const vec2<R>& v) {return vec2<R>(s*v.x,s*v.y);}
+template<typename R> vec2<R> operator*(R& s,vec2<R>& v) {return v*s;}
 template<typename R> vec2<R> rotate(const vec2<R>& v,const R a) {vec2<R> r=v; r.rotate(a); return r;}
 template<typename R> vec2<R> rotate(const vec2<R>& v,const R ax,const R ay) {vec2<R> r=v; r.rotate(ax,ay); return r;}
 template<typename R> R distance(vec2<R>& a,vec2<R>& b) {return a.distance(b);}
@@ -132,7 +132,8 @@ template<typename R> int vec2_test_math(std::ostream& s) {
     a+=g*a;
     c=vec2<R>(3,3);
     d=vec2<R>(4,4);
-    a=c/-d;
+	a*=d;
+	b=d*a;
     return 0;
 }
 
