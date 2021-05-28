@@ -12,17 +12,17 @@ template<typename R> R sqr(const R x) {return x*x;}
 
 template<typename R> R div(const R n,const R d) {
 	assert(R(0)!=d);
-	assert(!isnan(d));
-	assert(!isinf(d));
-	assert(!isnan(n));
-	assert(!isinf(n));
+	assert(!std::isnan(d));
+	assert(!std::isinf(d));
+	assert(!std::isnan(n));
+	assert(!std::isinf(n));
 	return n/d;
 }
 
 template<typename R> R inv(const R x) {
 	assert(R(0)!=x);
-	assert(!isnan(x));
-	assert(!isinf(x));
+	assert(!std::isnan(x));
+	assert(!std::isinf(x));
 	return R(1)/x;
 }
 
