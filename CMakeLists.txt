@@ -3,37 +3,45 @@
 # https://ryandeangraham.medium.com/building-a-header-only-library-hello-world-f9dd05ac1066
 
 # Build
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.2)
 
-project(geometry2d VERSION 0.4.1 LANGUAGES CXX)
+project(geometry2d VERSION 0.4.1)
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(GNUInstallDirs)
+#message("Supported features = ${CMAKE_CXX_COMPILE_FEATURES}")
 
 add_library(${PROJECT_NAME} INTERFACE)
+# TODO:  clean this up!
+#target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
+#set_property(TARGET ${PROJECT_NAME} PROPERTY LINKER_LANGUAGE CXX)
+#set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_14)
-
-target_include_directories(
-    ${PROJECT_NAME}
-    INTERFACE
-    $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
+#set_target_properties(${PROJECT_NAME}
+#    PROPERTIES
+#        CXX_STANDARD 11
+#        CXX_STANDARD_REQUIRED YES
+#        CXX_EXTENSIONS NO
+#)
 
 
+#target_include_directories(
+#    ${PROJECT_NAME}
+#    INTERFACE
+#    $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}>
+#    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+#)
 
-# Test
-find_package(Catch2 REQUIRED)
+# Tests (TODO: fix this. tests are broken)
 
 add_executable(test_geometry2d test/test_geometry2d.cpp)
 
-target_link_libraries(test_geometry2d PRIVATE Catch2::Catch2)
 target_include_directories(test_geometry2d PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
-include(CTest)
-include(Catch)
-
-catch_discover_tests(test_geometry2d)
+#include(CTest)
 
 enable_testing()
 
